@@ -1,0 +1,23 @@
+https://www.acmicpc.net/problem/4673
+
+
+# nd를 만드는 함수 정의
+def nd(num:int):
+    result = num
+    # 각 자리 숫자를 모두 더한다
+    for i in str(num):
+        result += int(i)
+    return result
+
+# 생성자가 존재하는 숫자들의 list정의
+nd_list = []
+
+# nd_list에 생성자가 존재하는 숫자들을 모두 입력한다
+for i in range(1,10000):
+    a = nd(i)
+    nd_list.append(a)
+
+# nd_list에 존재하지 않는 1부터 10000까지의 숫자들을 모두 출력
+for i in range(1,10000):
+    if i not in nd_list:
+        print(i)
