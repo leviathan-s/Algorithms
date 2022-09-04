@@ -1,0 +1,54 @@
+import sys
+import collections
+
+graph = collections.defaultdict(list)
+dfs_disc = []
+bfs_disc = []
+
+# 정점, 간선, 시작점 정보를 입력받는다
+vert_num, edge_num, start = map(int,sys.stdin.readline().rstrip().split())
+
+# 입력값을 받아서 그래프를 구성한다
+for _ in range(edge_num):
+    ent = list(map(int,sys.stdin.readline().rstrip().split()))
+    key = ent[0]
+    value = ent[1]
+    graph[key].append(value)
+    graph[value].append(key)
+
+# 정렬하기
+for key in graph:
+    graph[key].sort()
+
+# Depth First Search function
+def dfs(vert):
+    if vert in dfs_disc:
+        return
+    else:
+        print(vert, end=" ")
+        dfs_disc.append(vert)
+        for next in graph[vert]:
+            dfs(next)
+
+# Breath First Search function        
+def bfs(vert):
+    queue = collections.deque()
+    queue.append(vert)
+    
+    while len(queue) > 0:
+        next = queue.popleft()
+        if next in bfs_disc:
+            continue
+        else:
+            print(next, end=" ")
+            bfs_disc.append(next)
+            for v in graph[next]:
+                queue.append(v)
+    return
+
+# Depth First Search 수행
+dfs(start)
+print()
+
+# Breath First Search 수행
+bfs(start)
