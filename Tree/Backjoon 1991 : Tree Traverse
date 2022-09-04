@@ -1,0 +1,43 @@
+import sys
+
+tree = {}
+# tree의 node 개수 입력하기
+node_num = int(sys.stdin.readline().rstrip())
+
+# tree에 대한 정보를 입력받아 tree를 구성한다
+for _ in range(node_num):
+    root, left, right = sys.stdin.readline().rstrip().split()
+    tree[root] = (left, right)
+
+# 전위순회 함수
+def preorder_traverse(node):
+    if node != ".":
+        print(node, end="") # print parent node
+        preorder_traverse(tree[node][0]) # left child node 
+        preorder_traverse(tree[node][1]) # right child node
+    else:
+        return
+
+# 중위 순회 함수    
+def inorder_traverse(node):
+    if node != ".":
+        inorder_traverse(tree[node][0]) # left child node
+        print(node, end="") # print parent node
+        inorder_traverse(tree[node][1]) # right child node
+    else:
+        return
+    
+# 후위 순회 함수
+def postorder_traverse(node):
+    if node != ".":
+        postorder_traverse(tree[node][0])
+        postorder_traverse(tree[node][1])
+        print(node, end="")
+    else:
+        return
+
+preorder_traverse('A')
+print()
+inorder_traverse('A')
+print()
+postorder_traverse('A')
